@@ -1,6 +1,7 @@
 ﻿package kabam.rotmg.assets {
 public class EmbeddedAssets {
 
+    public static var progressBarLarge_shapeEmbed:Class = EmbeddedAssets_progressBarLarge_shapeEmbed_;
     public static var particlesEmbed:Class = EmbeddedAssets_particlesEmbed;
     public static const StarburstSpinner:Class = EmbeddedAssets_StarburstSpinner;
     public static const EvolveBackground:Class = EmbeddedAssets_EvolveBackground;

@@ -1,11 +1,14 @@
 ﻿package com.company.assembleegameclient.ui {
 import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.util.TextureRedrawer;
 
+import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 
+import kabam.rotmg.assets.EmbeddedAssets_progressBarLarge_shapeEmbed_;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.text.view.stringBuilder.StaticStringBuilder;
@@ -26,6 +29,7 @@ public class StatusBar extends Sprite {
     public var max_:int = -1;
     public var boost_:int = -1;
     public var maxMax_:int = -1;
+    public var level_:int = 0;
     private var labelText_:TextFieldDisplayConcrete;
     private var labelTextStringBuilder_:LineBuilder;
     private var valueText_:TextFieldDisplayConcrete;
@@ -42,22 +46,23 @@ public class StatusBar extends Sprite {
     private var direction:int = -1;
     private var speed:Number = 0.1;
 
-    public function StatusBar(_arg_1:int, _arg_2:int, _arg_3:uint, _arg_4:uint, _arg_5:String = null) {
+    public function StatusBar(width:int, height:int, foregroundColor:uint, backgroundColor:uint, textKey:String = null, drawShape:Boolean = true) {
         this.colorSprite = new Sprite();
         super();
         addChild(this.colorSprite);
-        this.w_ = _arg_1;
-        this.h_ = _arg_2;
-        this.defaultForegroundColor = (this.color_ = _arg_3);
-        this.defaultBackgroundColor = (this.backColor_ = _arg_4);
+        this.w_ = width + 2;
+        this.h_ = height;
+        this.defaultForegroundColor = (this.color_ = foregroundColor);
+        this.defaultBackgroundColor = (this.backColor_ = backgroundColor);
         this.textColor_ = 0xFFFFFF;
-        if (((!((_arg_5 == null))) && (!((_arg_5.length == 0))))) {
+        if (((!((textKey == null))) && (!((textKey.length == 0))))) {
             this.labelText_ = new TextFieldDisplayConcrete().setSize(14).setColor(this.textColor_);
             this.labelText_.setBold(true);
-            this.labelTextStringBuilder_ = new LineBuilder().setParams(_arg_5);
+            this.labelTextStringBuilder_ = new LineBuilder().setParams(textKey);
             this.labelText_.setStringBuilder(this.labelTextStringBuilder_);
             this.centerVertically(this.labelText_);
             this.labelText_.filters = [new DropShadowFilter(0, 0, 0)];
+            this.labelText_.x = 2;
             addChild(this.labelText_);
         }
         this.valueText_ = new TextFieldDisplayConcrete().setSize(14).setColor(0xFFFFFF);
@@ -87,51 +92,62 @@ public class StatusBar extends Sprite {
             addEventListener(MouseEvent.ROLL_OUT, this.onMouseOut);
         }
         barTextSignal.add(this.setBarText);
+        if (drawShape)
+            this.drawProgressBarShape();
     }
 
-    public function centerVertically(_arg_1:TextFieldDisplayConcrete):void {
-        _arg_1.setVerticalAlign(TextFieldDisplayConcrete.MIDDLE);
-        _arg_1.y = ((this.h_ / 2) + 1);
+    private var bitmap_:Bitmap;
+
+    private function drawProgressBarShape():void {
+        this.bitmap_ = new Bitmap();
+        this.bitmap_.bitmapData = new EmbeddedAssets_progressBarLarge_shapeEmbed_().bitmapData;
+        addChild(this.bitmap_);
     }
 
-    private function onMultiplierOver(_arg_1:MouseEvent):void {
+    public function centerVertically(_arg1:TextFieldDisplayConcrete):void {
+        _arg1.setVerticalAlign(TextFieldDisplayConcrete.MIDDLE);
+        _arg1.y = (this.h_ / 2) - 1;
+    }
+
+    private function onMultiplierOver(_arg1:MouseEvent):void {
         dispatchEvent(new Event("MULTIPLIER_OVER"));
     }
 
-    private function onMultiplierOut(_arg_1:MouseEvent):void {
+    private function onMultiplierOut(_arg1:MouseEvent):void {
         dispatchEvent(new Event("MULTIPLIER_OUT"));
     }
 
-    public function draw(_arg_1:int, _arg_2:int, _arg_3:int, _arg_4:int = -1):void {
-        if (_arg_2 > 0) {
-            _arg_1 = Math.min(_arg_2, Math.max(0, _arg_1));
+    public function draw(value:int, max:int, boost:int, maxMax:int = -1, level:int = 0):void {
+        if (max > 0) {
+            value = Math.min(max, Math.max(0, value));
         }
-        if ((((((((_arg_1 == this.val_)) && ((_arg_2 == this.max_)))) && ((_arg_3 == this.boost_)))) && ((_arg_4 == this.maxMax_)))) {
+        if ((((((((value == this.val_)) && ((max == this.max_)))) && ((boost == this.boost_)))) && ((maxMax == this.maxMax_)))) {
             return;
         }
-        this.val_ = _arg_1;
-        this.max_ = _arg_2;
-        this.boost_ = _arg_3;
-        this.maxMax_ = _arg_4;
+        this.val_ = value;
+        this.max_ = max;
+        this.boost_ = boost;
+        this.maxMax_ = maxMax;
+        this.level_ = level;
         this.internalDraw();
     }
 
-    public function setLabelText(_arg_1:String, _arg_2:Object = null):void {
-        this.labelTextStringBuilder_.setParams(_arg_1, _arg_2);
+    public function setLabelText(_arg1:String, _arg2:Object = null):void {
+        this.labelTextStringBuilder_.setParams(_arg1, _arg2);
         this.labelText_.setStringBuilder(this.labelTextStringBuilder_);
     }
 
-    private function setTextColor(_arg_1:uint):void {
-        this.textColor_ = _arg_1;
+    private function setTextColor(_arg1:uint):void {
+        this.textColor_ = _arg1;
         if (this.boostText_ != null) {
             this.boostText_.setColor(this.textColor_);
         }
         this.valueText_.setColor(this.textColor_);
     }
 
-    public function setBarText(_arg_1:Boolean):void {
+    public function setBarText(_arg1:Boolean):void {
         this.mouseOver_ = false;
-        if (_arg_1) {
+        if (_arg1) {
             removeEventListener(MouseEvent.ROLL_OVER, this.onMouseOver);
             removeEventListener(MouseEvent.ROLL_OUT, this.onMouseOut);
         }
@@ -145,17 +161,17 @@ public class StatusBar extends Sprite {
     private function internalDraw():void {
         graphics.clear();
         this.colorSprite.graphics.clear();
-        var _local_1:uint = 0xFFFFFF;
+        var _local1:uint = 0xFFFFFF;
         if ((((this.maxMax_ > 0)) && (((this.max_ - this.boost_) == this.maxMax_)))) {
-            _local_1 = 0xFCDF00;
+            _local1 = 0xFCDF00;
         }
         else {
             if (this.boost_ > 0) {
-                _local_1 = 6206769;
+                _local1 = 6206769;
             }
         }
-        if (this.textColor_ != _local_1) {
-            this.setTextColor(_local_1);
+        if (this.textColor_ != _local1) {
+            this.setTextColor(_local1);
         }
         graphics.beginFill(this.backColor_);
         graphics.drawRect(0, 0, this.w_, this.h_);
@@ -172,6 +188,7 @@ public class StatusBar extends Sprite {
             this.colorSprite.graphics.drawRect(0, 0, this.w_, this.h_);
         }
         this.colorSprite.graphics.endFill();
+        this.colorSprite.filters = [TextureRedrawer.OUTLINE_FILTER];
         if (contains(this.valueText_)) {
             removeChild(this.valueText_);
         }
@@ -184,8 +201,16 @@ public class StatusBar extends Sprite {
     }
 
     public function drawWithMouseOver():void {
+        var _local2:int;
+        var _local1:String = "";
+        if (Parameters.data_.toggleToMaxText) {
+            _local2 = (this.maxMax_ - (this.max_ - this.boost_));
+            if ((((this.level_ >= 20)) && ((_local2 > 0)))) {
+                _local1 = (_local1 + ("|" + Math.ceil((_local2 / 5)).toString()));
+            }
+        }
         if (this.max_ > 0) {
-            this.valueText_.setStringBuilder(this.valueTextStringBuilder_.setString(((this.val_ + "/") + this.max_)));
+            this.valueText_.setStringBuilder(this.valueTextStringBuilder_.setString((((this.val_ + "/") + this.max_) + _local1)));
         }
         else {
             this.valueText_.setStringBuilder(this.valueTextStringBuilder_.setString(("" + this.val_)));
@@ -226,16 +251,16 @@ public class StatusBar extends Sprite {
         }
     }
 
-    public function startPulse(_arg_1:Number, _arg_2:Number, _arg_3:Number):void {
+    public function startPulse(_arg1:Number, _arg2:Number, _arg3:Number):void {
         this.isPulsing = true;
-        this.color_ = _arg_2;
-        this.pulseBackColor = _arg_3;
-        this.repetitions = _arg_1;
+        this.color_ = _arg2;
+        this.pulseBackColor = _arg3;
+        this.repetitions = _arg1;
         this.internalDraw();
         addEventListener(Event.ENTER_FRAME, this.onPulse);
     }
 
-    private function onPulse(_arg_1:Event):void {
+    private function onPulse(_arg1:Event):void {
         if ((((this.colorSprite.alpha > 1)) || ((this.colorSprite.alpha < 0)))) {
             this.direction = (this.direction * -1);
             if (this.colorSprite.alpha > 1) {
@@ -253,16 +278,16 @@ public class StatusBar extends Sprite {
         this.colorSprite.alpha = (this.colorSprite.alpha + (this.speed * this.direction));
     }
 
-    private function onMouseOver(_arg_1:MouseEvent):void {
+    private function onMouseOver(_arg1:MouseEvent):void {
         this.mouseOver_ = true;
         this.internalDraw();
     }
 
-    private function onMouseOut(_arg_1:MouseEvent):void {
+    private function onMouseOut(_arg1:MouseEvent):void {
         this.mouseOver_ = false;
         this.internalDraw();
     }
 
 
 }
-}//package com.company.assembleegameclient.ui
+}
