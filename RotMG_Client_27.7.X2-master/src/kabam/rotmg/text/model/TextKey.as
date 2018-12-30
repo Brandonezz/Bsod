@@ -19,6 +19,7 @@ public class TextKey {
     public static const TRANSFER_ACCOUNT_NEW_EMAIL:String = "TransferAccountView.newemail";
     public static const TRANSFER_ACCOUNT_NEW_PWD:String = "TransferAccountView.newpwd";
     public static const TOS_TEXT:String = "WebRegister.tos_text";
+    public static const CURRENT_CHARACTER_TAGLINE_NOQUEST:String = "All quests completed!";
     public static const SIGN_IN_TEXT:String = "WebRegister.sign_in_text";
     public static const REGISTER_IMPERATIVE:String = "WebRegister.register_imperative";
     public static const MULTIPLE_ERRORS_MESSAGE:String = "WebRegister.multiple_errors_message";

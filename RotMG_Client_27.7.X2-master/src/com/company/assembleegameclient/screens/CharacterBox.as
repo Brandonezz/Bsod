@@ -49,7 +49,7 @@ public class CharacterBox extends Sprite {
     private var lock_:Bitmap;
     private var saleText_:TextFieldDisplayConcrete;
     private var unlockedText_:TextFieldDisplayConcrete;
-    private var saleTag_;
+    private var saleTag_:CharacterBox_SaleTag;
     public var buyButtonClicked_:NativeSignal;
     public var characterSelectClicked_:NativeSignal;
 
@@ -76,7 +76,8 @@ public class CharacterBox extends Sprite {
         this.setImage(AnimatedChar.DOWN, AnimatedChar.STAND, 0);
         this.graphic_.addChild(this.bitmap_);
         this.classNameText_ = new TextFieldDisplayConcrete().setSize(14).setColor(0xFFFFFF).setAutoSize(TextFieldAutoSize.CENTER).setTextWidth(this.graphic_.width).setBold(true);
-        this.classNameText_.setStringBuilder(new LineBuilder().setParams(this.playerXML_.DisplayId));
+        //this.classNameText_.setStringBuilder(new LineBuilder().setParams(this.playerXML_.DisplayId));
+        this.classNameText_.setStringBuilder(new LineBuilder().setParams(ClassToolTip.getDisplayId(this.playerXML_)));
         this.classNameText_.filters = [new DropShadowFilter(0, 0, 0, 1, 4, 4)];
         this.graphic_.addChild(this.classNameText_);
         this.setBuyButton();
@@ -87,7 +88,7 @@ public class CharacterBox extends Sprite {
             _local_5.x = ((this.graphic_.width / 2) - (_local_5.width / 2));
             _local_5.filters = [new DropShadowFilter(0, 0, 0, 1, 4, 4)];
             this.graphicContainer_.addChild(_local_5);
-            this.classNameText_.y = 74;
+            this.classNameText_.x = 300;
         }
         else {
             addChild(this.buyButton_);

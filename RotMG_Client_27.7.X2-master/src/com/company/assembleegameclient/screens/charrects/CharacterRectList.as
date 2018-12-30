@@ -57,6 +57,7 @@ public class CharacterRectList extends Sprite {
                 _local_9.setIcon(this.getIcon(_local_5, 100));
             }
             _local_9.y = _local_3;
+            _local_9.x = 160;
             addChild(_local_9);
             _local_3 = (_local_3 + (CharacterRect.HEIGHT + 4));
         }
@@ -66,6 +67,7 @@ public class CharacterRectList extends Sprite {
                 _local_11 = new CreateNewCharacterRect(this.model);
                 _local_11.addEventListener(MouseEvent.MOUSE_DOWN, this.onNewChar);
                 _local_11.y = _local_3;
+                _local_11.x = 160;
                 addChild(_local_11);
                 _local_3 = (_local_3 + (CharacterRect.HEIGHT + 4));
                 _local_10++;
@@ -73,6 +75,7 @@ public class CharacterRectList extends Sprite {
         }
         _local_6 = new BuyCharacterRect(this.model);
         _local_6.addEventListener(MouseEvent.MOUSE_DOWN, this.onBuyCharSlot);
+        _local_6.x = 160;
         _local_6.y = _local_3;
         addChild(_local_6);
     }

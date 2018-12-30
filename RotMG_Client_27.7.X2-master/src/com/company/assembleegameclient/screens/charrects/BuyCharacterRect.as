@@ -44,8 +44,8 @@ public class BuyCharacterRect extends CharacterRect {
         _local_1 = new TextFieldDisplayConcrete().setSize(18).setColor(0xFFFFFF).setAutoSize(TextFieldAutoSize.RIGHT);
         _local_1.setStringBuilder(new StaticStringBuilder(this.model.getNextCharSlotPrice().toString()));
         _local_1.filters = [new DropShadowFilter(0, 0, 0, 1, 8, 8)];
-        _local_1.x = (WIDTH - 43);
-        _local_1.y = 19;
+        _local_1.x = (WIDTH - 48);
+        _local_1.y = 19 * 2 + 10;
         selectContainer.addChild(_local_1);
     }
 

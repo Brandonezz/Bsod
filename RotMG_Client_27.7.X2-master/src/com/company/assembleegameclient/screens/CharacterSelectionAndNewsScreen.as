@@ -63,6 +63,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private var menuOptionsBar:MenuOptionsBar;
     private var BOUNDARY_LINE_ONE_Y:int = 106;
 
+
     public function CharacterSelectionAndNewsScreen() {
         this.newCharacter = new Signal();
         this.chooseName = new Signal();
@@ -89,8 +90,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private function createDisplayAssets(_arg_1:PlayerModel):void {
         this.createNameText();
         this.createCreditDisplay();
-        this.createNewsText();
-        this.createNews();
         this.createBoundaryLines();
         this.createOpenCharactersText();
         var _local_2:Graveyard = new Graveyard(_arg_1);
@@ -103,6 +102,14 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         if (!_arg_1.isNameChosen()) {
             this.createChooseNameLink();
         }
+    }
+
+    private function createCreditDisplay():void {
+        this.creditDisplay = new CreditDisplay();
+        this.creditDisplay.draw(this.model.getCredits(), this.model.getFame());
+        this.creditDisplay.x = this.getReferenceRectangle().width;
+        this.creditDisplay.y = 20;
+        addChild(this.creditDisplay);
     }
 
     private function makeMenuOptionsBar():void {
@@ -124,8 +131,8 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
 
     private function createScrollbar():void {
         this.scrollBar = new Scrollbar(16, 399);
-        this.scrollBar.x = 443;
-        this.scrollBar.y = 113;
+        this.scrollBar.x = 605;
+        this.scrollBar.y = 118;
         this.scrollBar.setIndicatorSize(399, this.characterList.height);
         this.scrollBar.addEventListener(Event.CHANGE, this.onScrollBarChange);
         addChild(this.scrollBar);
@@ -147,7 +154,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         this.characterList.x = this.CHARACTER_LIST_X_POS;
         this.characterList.y = this.CHARACTER_LIST_Y_POS;
         this.characterListHeight = this.characterList.height;
-        if (this.characterListHeight > this.SCROLLBAR_REQUIREMENT_HEIGHT) {
+        if (model.getMaxCharacters() >= 2) { //if more than 15 chars
             this.createScrollbar();
         }
         addChild(this.characterList);
@@ -179,7 +186,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private function createOpenCharactersText():void {
         this.openCharactersText = new TextFieldDisplayConcrete().setSize(18).setColor(TAB_UNSELECTED);
         this.openCharactersText.setBold(true);
-        this.openCharactersText.setStringBuilder(new LineBuilder().setParams(TextKey.CHARACTER_SELECTION_CHARACTERS));
+        this.openCharactersText.setStringBuilder(new LineBuilder().setParams("Characters"));
         this.openCharactersText.filters = [this.DROP_SHADOW];
         this.openCharactersText.x = this.CHARACTER_LIST_X_POS;
         this.openCharactersText.y = 79;
@@ -216,17 +223,9 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         }
     }
 
-    private function createCreditDisplay():void {
-        this.creditDisplay = new CreditDisplay();
-        this.creditDisplay.draw(this.model.getCredits(), this.model.getFame());
-        this.creditDisplay.x = this.getReferenceRectangle().width;
-        this.creditDisplay.y = 20;
-        addChild(this.creditDisplay);
-    }
-
     private function createChooseNameLink():void {
         this.nameChooseLink_ = new DeprecatedClickableText(16, false, TextKey.CHARACTER_SELECTION_AND_NEWS_SCREEN_CHOOSE_NAME);
-        this.nameChooseLink_.y = 50;
+        this.nameChooseLink_.y = 78;
         this.nameChooseLink_.setAutoSize(TextFieldAutoSize.CENTER);
         this.nameChooseLink_.x = (this.getReferenceRectangle().width / 2);
         this.nameChooseLink_.addEventListener(MouseEvent.CLICK, this.onChooseName);
@@ -243,7 +242,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         addChild(this.nameText);
     }
 
-    function getReferenceRectangle():Rectangle {
+    private function getReferenceRectangle():Rectangle {
         var _local_1:Rectangle = new Rectangle();
         if (stage) {
             _local_1 = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
@@ -257,8 +256,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         this.lines.graphics.lineStyle(2, 0x545454);
         this.lines.graphics.moveTo(0, this.BOUNDARY_LINE_ONE_Y);
         this.lines.graphics.lineTo(this.getReferenceRectangle().width, this.BOUNDARY_LINE_ONE_Y);
-        this.lines.graphics.moveTo(466, 107);
-        this.lines.graphics.lineTo(466, 526);
         this.lines.graphics.lineStyle();
         addChild(this.lines);
     }
