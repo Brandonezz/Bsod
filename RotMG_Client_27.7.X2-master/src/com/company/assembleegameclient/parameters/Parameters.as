@@ -112,7 +112,6 @@ public class Parameters {
     }
 
     public static function setDefaults():void {
-        setDefault("mscale", 1.0);
         setDefaultKey("moveLeft", KeyCodes.A);
         setDefaultKey("moveRight", KeyCodes.D);
         setDefaultKey("moveUp", KeyCodes.W);

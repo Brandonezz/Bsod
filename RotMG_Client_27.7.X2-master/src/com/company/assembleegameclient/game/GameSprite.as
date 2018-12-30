@@ -22,6 +22,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.ColorMatrixFilter;
+import flash.display.StageScaleMode;
 import flash.utils.ByteArray;
 import flash.utils.getTimer;
 
@@ -36,6 +37,7 @@ import kabam.rotmg.constants.GeneralConstants;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.core.model.MapModel;
 import kabam.rotmg.core.model.PlayerModel;
+import kabam.rotmg.core.view.Layers;
 import kabam.rotmg.game.view.CreditDisplay;
 import kabam.rotmg.game.view.GiftStatusDisplay;
 import kabam.rotmg.game.view.NewsModalButton;
@@ -65,6 +67,7 @@ public class GameSprite extends AGameSprite {
 
     public const monitor:Signal = new Signal(String, int);
     public const modelInitialized:Signal = new Signal();
+    public static const DISPLAY_AREA_Y_SPACE = 32;
     public const drawCharacterWindow:Signal = new Signal(Player);
 
     public var chatBox_:Chat;
@@ -385,26 +388,171 @@ public class GameSprite extends AGameSprite {
         return (true);
     }
 
-    public function connect():void {
-        if (!this.isGameStarted) {
+    public function onScreenResize(_arg_1:Event):void
+    {
+        var _local_2:Boolean = Parameters.data_.uiscale;
+        var _local_3:Number = (800 / stage.stageWidth);
+        var _local_4:Number = (600 / stage.stageHeight);
+        var _local_5:Number = (_local_3 / _local_4);
+        var _local_6:int = 66;
+        if (this.map != null)
+        {
+            this.map.scaleX = (_local_3 * Parameters.data_.mscale);
+            this.map.scaleY = (_local_4 * Parameters.data_.mscale);
+        }
+        if (this.hudView != null)
+        {
+            if (_local_2)
+            {
+                this.hudView.scaleX = _local_5;
+                this.hudView.scaleY = 1;
+                this.hudView.y = 0;
+            }
+            else
+            {
+                this.hudView.scaleX = _local_3;
+                this.hudView.scaleY = _local_4;
+                this.hudView.y = (300 * (1 - _local_4));
+            }
+            this.hudView.x = (800 - (200 * this.hudView.scaleX));
+            if (this.creditDisplay_ != null)
+            {
+                this.creditDisplay_.x = (this.hudView.x - (6 * this.creditDisplay_.scaleX));
+            }
+        }
+        if (this.chatBox_ != null)
+        {
+            if (_local_2)
+            {
+                this.chatBox_.scaleX = _local_5;
+                this.chatBox_.scaleY = 1;
+            }
+            else
+            {
+                this.chatBox_.scaleX = _local_3;
+                this.chatBox_.scaleY = _local_4;
+            }
+            this.chatBox_.y = (300 + (300 * (1 - this.chatBox_.scaleY)));
+        }
+        if (this.rankText_ != null)
+        {
+            if (_local_2)
+            {
+                this.rankText_.scaleX = _local_5;
+                this.rankText_.scaleY = 1;
+            }
+            else
+            {
+                this.rankText_.scaleX = _local_3;
+                this.rankText_.scaleY = _local_4;
+            }
+            this.rankText_.x = (8 * this.rankText_.scaleX);
+            this.rankText_.y = (2 * this.rankText_.scaleY);
+        }
+        if (this.giftStatusDisplay != null)
+        {
+            if (_local_2)
+            {
+                this.giftStatusDisplay.scaleX = _local_5;
+                this.giftStatusDisplay.scaleY = 1;
+            }
+            else
+            {
+                this.giftStatusDisplay.scaleX = _local_3;
+                this.giftStatusDisplay.scaleY = _local_4;
+            }
+            this.giftStatusDisplay.x = (6 * this.giftStatusDisplay.scaleX);
+            this.giftStatusDisplay.y = (_local_6 * this.giftStatusDisplay.scaleY);
+            _local_6 = (_local_6 + DISPLAY_AREA_Y_SPACE);
+        }
+        if (this.newsModalButton != null)
+        {
+            if (_local_2)
+            {
+                this.newsModalButton.scaleX = _local_5;
+                this.newsModalButton.scaleY = 1;
+            }
+            else
+            {
+                this.newsModalButton.scaleX = _local_3;
+                this.newsModalButton.scaleY = _local_4;
+            }
+            this.newsModalButton.x = (6 * this.newsModalButton.scaleX);
+            this.newsModalButton.y = (_local_6 * this.newsModalButton.scaleY);
+            _local_6 = (_local_6 + DISPLAY_AREA_Y_SPACE);
+        }
+        if (this.guildText_ != null)
+        {
+            if (_local_2)
+            {
+                this.guildText_.scaleX = _local_5;
+                this.guildText_.scaleY = 1;
+            }
+            else
+            {
+                this.guildText_.scaleX = _local_3;
+                this.guildText_.scaleY = _local_4;
+            }
+            this.guildText_.x = (64 * this.guildText_.scaleX);
+            this.guildText_.y = (2 * this.guildText_.scaleY);
+        }
+        if (this.creditDisplay_ != null)
+        {
+            if (_local_2)
+            {
+                this.creditDisplay_.scaleX = _local_5;
+                this.creditDisplay_.scaleY = 1;
+            }
+            else
+            {
+                this.creditDisplay_.scaleX = _local_3;
+                this.creditDisplay_.scaleY = _local_4;
+            }
+        }
+    }
+
+    public function connect():void
+    {
+        if (!this.isGameStarted)
+        {
             this.isGameStarted = true;
             Renderer.inGame = true;
             gsc_.connect();
-            this.idleWatcher_.start(this);
             lastUpdate_ = getTimer();
             stage.addEventListener(MoneyChangedEvent.MONEY_CHANGED, this.onMoneyChanged);
             stage.addEventListener(Event.ENTER_FRAME, this.onEnterFrame);
+            this.parent.parent.setChildIndex((this.parent.parent as Layers).top, 0);
+            if (Parameters.data_.mscale == undefined)
+            {
+                Parameters.data_.mscale = "1.0";
+            }
+            if (Parameters.data_.stageScale == undefined)
+            {
+                Parameters.data_.stageScale = StageScaleMode.NO_SCALE;
+            }
+            if (Parameters.data_.uiscale == undefined)
+            {
+                Parameters.data_.uiscale = true;
+            }
+            Parameters.save();
+            stage.scaleMode = Parameters.data_.stageScale;
+            stage.addEventListener(Event.RESIZE, this.onScreenResize);
+            stage.dispatchEvent(new Event(Event.RESIZE));
             LoopedProcess.addProcess(new LoopedCallback(100, this.updateNearestInteractive));
         }
     }
 
-    public function disconnect():void {
-        if (this.isGameStarted) {
+    public function disconnect():void
+    {
+        if (this.isGameStarted)
+        {
             this.isGameStarted = false;
             Renderer.inGame = false;
-            this.idleWatcher_.stop();
             stage.removeEventListener(MoneyChangedEvent.MONEY_CHANGED, this.onMoneyChanged);
             stage.removeEventListener(Event.ENTER_FRAME, this.onEnterFrame);
+            stage.removeEventListener(Event.RESIZE, this.onScreenResize);
+            stage.scaleMode = StageScaleMode.EXACT_FIT;
+            stage.dispatchEvent(new Event(Event.RESIZE));
             LoopedProcess.destroyAll();
             ((contains(map)) && (removeChild(map)));
             map.dispose();

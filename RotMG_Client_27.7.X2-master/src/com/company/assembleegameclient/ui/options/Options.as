@@ -25,6 +25,7 @@ import flash.text.TextFieldAutoSize;
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
 import flash.ui.MouseCursorData;
+import flash.display.StageScaleMode;
 
 import kabam.rotmg.text.model.TextKey;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
@@ -492,10 +493,34 @@ public class Options extends Sprite {
     }
 
     private function addMiscOptions():void {
-        this.addOptionAndPosition(new ChoiceOption("showProtips", new <StringBuilder>[makeLineBuilder(TextKey.OPTIONS_LEGAL_VIEW), makeLineBuilder(TextKey.OPTIONS_LEGAL_VIEW)], [Parameters.data_.showProtips, Parameters.data_.showProtips], TextKey.OPTIONS_LEGAL_PRIVACY, TextKey.OPTIONS_LEGAL_PRIVACY_DESC, this.onLegalPrivacyClick));
-        this.addOptionAndPosition(new NullOption());
-        this.addOptionAndPosition(new ChoiceOption("showProtips", new <StringBuilder>[makeLineBuilder(TextKey.OPTIONS_LEGAL_VIEW), makeLineBuilder(TextKey.OPTIONS_LEGAL_VIEW)], [Parameters.data_.showProtips, Parameters.data_.showProtips], TextKey.OPTIONS_LEGAL_TOS, TextKey.OPTIONS_LEGAL_TOS_DESC, this.onLegalTOSClick));
-        this.addOptionAndPosition(new NullOption());
+        this.addOptionAndPosition(new ChoiceOption("stageScale", makeOnOffLabels(), [StageScaleMode.NO_SCALE, StageScaleMode.EXACT_FIT], "Fullscreen v3", "Extends viewing area at a cost of lower fps.", this.fsv3));
+        this.addOptionAndPosition(new ChoiceOption("uiscale", makeOnOffLabels(), [true, false], "Scale UI", "Scales the UI to fit the screen.", this.scaleui));
+        this.fsv3_options();
+    }
+
+    private function scaleui():void
+    {
+        Parameters.root.dispatchEvent(new Event(Event.RESIZE));
+    }
+
+    private function fsv3():void
+    {
+        stage.scaleMode = Parameters.data_.stageScale;
+        Parameters.root.dispatchEvent(new Event(Event.RESIZE));
+        this.fsv3_options();
+    }
+
+    private function fsv3_options():void
+    {
+        var _local_1:ChoiceOption;
+        var _local_2:int;
+        for each (_local_1 in this.options_)
+        {
+            if (_local_1.paramName_ == "uiscale")
+            {
+                _local_1.enable((Parameters.data_.stageScale == StageScaleMode.EXACT_FIT));
+            }
+        }
     }
 
     private function addFriendOptions():void {
