@@ -1,4 +1,5 @@
 ﻿package kabam.rotmg.ui.view.components {
+import com.company.assembleegameclient.screens.CharacterSelectionAndNewsScreen;
 import com.company.assembleegameclient.screens.TitleMenuOption;
 import com.company.rotmg.graphics.ScreenGraphic;
 
@@ -24,6 +25,7 @@ public class MenuOptionsBar extends Sprite {
 
     private function makeScreenGraphic():void {
         this.screenGraphic = new ScreenGraphic();
+            this.screenGraphic.x = 801;
         addChild(this.screenGraphic);
     }
 

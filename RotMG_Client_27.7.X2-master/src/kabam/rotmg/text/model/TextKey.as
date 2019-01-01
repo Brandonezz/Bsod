@@ -13,6 +13,7 @@ public class TextKey {
     public static const LOGGED_IN_TEXT:String = "AccountInfo.loggedIn";
     public static const GUEST_ACCOUNT:String = "AccountInfo.guest";
     public static const REGISTER:String = "AccountInfo.register";
+    public static const BACK_BUTTON:String = "back";
     public static const CHECK_BOX_TEXT:String = "WebRegister.check_box_text";
     public static const TRANSFER_ACCOUNT_K_EMAIL:String = "TransferAccountView.kabamemail";
     public static const TRANSFER_ACCOUNT_K_PWD:String = "TransferAccountView.kabampwd";

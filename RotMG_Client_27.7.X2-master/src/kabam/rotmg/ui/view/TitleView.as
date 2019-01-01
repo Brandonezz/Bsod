@@ -78,34 +78,34 @@ public class TitleView extends Sprite {
         var _local_3:TitleMenuOption = ButtonFactory.getAccountButton();
         var _local_4:TitleMenuOption = ButtonFactory.getLegendsButton();
         var _local_5:TitleMenuOption = ButtonFactory.getSupportButton();
+        var _local_6:TitleMenuOption = ButtonFactory.getEditorButton();
         this.playClicked = _local_1.clicked;
         this.serversClicked = _local_2.clicked;
         this.accountClicked = _local_3.clicked;
         this.legendsClicked = _local_4.clicked;
         this.supportClicked = _local_5.clicked;
-        var _local_6:MenuOptionsBar = new MenuOptionsBar();
-        _local_6.addButton(_local_1, MenuOptionsBar.CENTER);
-        _local_6.addButton(_local_2, MenuOptionsBar.CENTER);
-        _local_6.addButton(_local_5, MenuOptionsBar.CENTER);
-        _local_6.addButton(_local_3, MenuOptionsBar.CENTER);
-        _local_6.addButton(_local_4, MenuOptionsBar.CENTER);
+        this.editorClicked = _local_6.clicked;
+        var _local_7:MenuOptionsBar = new MenuOptionsBar();
+        _local_7.addButton(_local_1, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_2, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_5, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_3, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_4, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_6, MenuOptionsBar.CENTER);
         //positioning bullshit
-        _local_1.x = 100;
+        _local_1.x = -700;
         _local_1.y = 300;
-        _local_2.x = 100;
+        _local_2.x = -700;
         _local_2.y = 250;
-        _local_3.x = 100;
-        _local_3.y = 200;
-        _local_4.x = 100;
+        _local_3.x = -700;
+        _local_3.y = 215;
+        _local_4.x = -700;
         _local_4.y = 350;
-        _local_5.x = 100;
-        _local_5.y = 400;
-
-
-
-
-
-        return (_local_6);
+        _local_5.x = -700;
+        _local_5.y = 385;
+        _local_6.x = -700;
+        _local_6.y = 420;
+        return (_local_7);
     }
 
     private function makeChildren():void {
@@ -151,7 +151,7 @@ public class TitleView extends Sprite {
 
     private function createEditorButton():void {
         var _local_1:TitleMenuOption = ButtonFactory.getEditorButton();
-        this.menuOptionsBar.addButton(_local_1, MenuOptionsBar.RIGHT);
+        this.menuOptionsBar.addButton(_local_1, MenuOptionsBar.CENTER);
         this.editorClicked = _local_1.clicked;
     }
 

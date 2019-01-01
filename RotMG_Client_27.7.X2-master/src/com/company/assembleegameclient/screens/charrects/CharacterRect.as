@@ -80,19 +80,19 @@ public class CharacterRect extends Sprite {
         this.taglineIcon.transform.colorTransform = new ColorTransform((179 / 0xFF), (179 / 0xFF), (179 / 0xFF));
         this.taglineIcon.scaleX = 1.2;
         this.taglineIcon.scaleY = 1.2;
-        this.taglineIcon.x = CharacterRectConstants.TAGLINE_ICON_POS_X;
-        this.taglineIcon.y = CharacterRectConstants.TAGLINE_ICON_POS_Y * 2;
+        this.taglineIcon.x = CharacterRectConstants.TAGLINE_ICON_POS_X + 66;
+        this.taglineIcon.y = 85;
         this.taglineIcon.filters = [new DropShadowFilter(0, 0, 0)];
         this.selectContainer.addChild(this.taglineIcon);
     }
 
     protected function makeClassNameText():void{
-        this.classNameText = new TextFieldDisplayConcrete().setSize(18).setColor(0xFFFFFF);
+        this.classNameText = new TextFieldDisplayConcrete().setSize(18).setColor(0xffa500);
         this.classNameText.setBold(true);
         this.classNameText.setStringBuilder(this.className);
         this.classNameText.filters = makeDropShadowFilter();
-        this.classNameText.x = CharacterRectConstants.CLASS_NAME_POS_X;
-        this.classNameText.y = CharacterRectConstants.CLASS_NAME_POS_Y * 2;
+        this.classNameText.x = CharacterRectConstants.CLASS_NAME_POS_X + 90;
+        this.classNameText.y = CharacterRectConstants.CLASS_NAME_POS_Y + 55;
         this.selectContainer.addChild(this.classNameText);
     }
 
@@ -100,8 +100,8 @@ public class CharacterRect extends Sprite {
         this.taglineText = new TextFieldDisplayConcrete().setSize(14).setColor(0xB3B3B3);
         this.taglineText.setStringBuilder(_arg_1);
         this.taglineText.filters = makeDropShadowFilter();
-        this.taglineText.x = CharacterRectConstants.TAGLINE_TEXT_POS_X;
-        this.taglineText.y = CharacterRectConstants.TAGLINE_TEXT_POS_Y * 2;
+        this.taglineText.x = CharacterRectConstants.TAGLINE_TEXT_POS_X + 66;
+        this.taglineText.y = CharacterRectConstants.TAGLINE_TEXT_POS_Y * 2 + 25;
         this.selectContainer.addChild(this.taglineText);
     }
 

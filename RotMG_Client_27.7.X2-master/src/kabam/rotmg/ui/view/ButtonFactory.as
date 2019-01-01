@@ -22,6 +22,7 @@ public class ButtonFactory {
     private static var supportButton:TitleMenuOption;
     private static var editorButton:TitleMenuOption;
     private static var quitButton:TitleMenuOption;
+    private static var backButton:TitleMenuOption;
     private static var doneButton:TitleMenuOption;
     private static var mainButton:TitleMenuOption;
     private static var classesButton:TitleMenuOption;
@@ -30,6 +31,10 @@ public class ButtonFactory {
 
     public static function getPlayButton():TitleMenuOption {
         return ((playButton = ((playButton) || (makeButton(ScreenTypes.PLAY, BUTTON_SIZE_LARGE, CENTER, true)))));
+    }
+
+    public static function getBackButton():TitleMenuOption {
+        return ((backButton = ((backButton) || (makeButton(TextKey.BACK_BUTTON, BUTTON_SIZE_SMALL, CENTER, true)))));
     }
 
     public static function getClassesButton():TitleMenuOption {
@@ -65,7 +70,7 @@ public class ButtonFactory {
     }
 
     public static function getEditorButton():TitleMenuOption {
-        return ((editorButton = ((editorButton) || (makeButton(ScreenTypes.EDITOR, BUTTON_SIZE_SMALL, CENTER)))));
+        return ((editorButton = ((editorButton) || (makeButton(ScreenTypes.EDITOR, BUTTON_SIZE_SMALL - 6, CENTER)))));
     }
 
     public static function getQuitButton():TitleMenuOption {

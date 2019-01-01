@@ -249,17 +249,14 @@ public class Options extends Sprite {
         }
     }
 
-    private function onAddedToStage(_arg_1:Event):void {
-        this.continueButton_.x = (stage.stageWidth / 2);
+    private function onAddedToStage(_arg_1:Event):void
+    {
+        this.continueButton_.x = 400;
         this.continueButton_.y = Y_POSITION;
         this.resetToDefaultsButton_.x = 20;
         this.resetToDefaultsButton_.y = Y_POSITION;
-        this.homeButton_.x = (stage.stageWidth - 20);
+        this.homeButton_.x = 780;
         this.homeButton_.y = Y_POSITION;
-        if (Capabilities.playerType == "Desktop") {
-            Parameters.data_.fullscreenMode = (stage.displayState == "fullScreenInteractive");
-            Parameters.save();
-        }
         this.setSelected(this.tabs_[0]);
         stage.addEventListener(KeyboardEvent.KEY_DOWN, this.onKeyDown, false, 1);
         stage.addEventListener(KeyboardEvent.KEY_UP, this.onKeyUp, false, 1);

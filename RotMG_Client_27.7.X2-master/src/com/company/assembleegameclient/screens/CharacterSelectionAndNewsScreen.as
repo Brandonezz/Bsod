@@ -23,6 +23,9 @@ import kabam.rotmg.text.view.stringBuilder.StaticStringBuilder;
 import kabam.rotmg.ui.view.ButtonFactory;
 import kabam.rotmg.ui.view.components.MenuOptionsBar;
 import kabam.rotmg.ui.view.components.ScreenBase;
+import com.company.rotmg.graphics.ScreenGraphic;
+
+import mx.controls.Button;
 
 import org.osflash.signals.Signal;
 
@@ -62,7 +65,13 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private var backButton:TitleMenuOption;
     private var menuOptionsBar:MenuOptionsBar;
     private var BOUNDARY_LINE_ONE_Y:int = 106;
+    private var screenGraphic:ScreenGraphic;
 
+    //
+
+    public var playClicked:Signal;
+    public var classesClicked:Signal;
+    public var backClicked:Signal;
 
     public function CharacterSelectionAndNewsScreen() {
         this.newCharacter = new Signal();
@@ -86,6 +95,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         this.model = _arg_1;
         this.createDisplayAssets(_arg_1);
     }
+
 
     private function createDisplayAssets(_arg_1:PlayerModel):void {
         this.createNameText();
@@ -112,14 +122,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         addChild(this.creditDisplay);
     }
 
-    private function makeMenuOptionsBar():void {
-        this.playButton.clicked.add(this.onPlayClick);
-        this.menuOptionsBar = new MenuOptionsBar();
-        this.menuOptionsBar.addButton(this.playButton, MenuOptionsBar.CENTER);
-        this.menuOptionsBar.addButton(this.backButton, MenuOptionsBar.LEFT);
-        this.menuOptionsBar.addButton(this.classesButton, MenuOptionsBar.RIGHT);
-        addChild(this.menuOptionsBar);
-    }
 
     private function createNews():void {
         var _local_1:NewsView;
@@ -146,6 +148,24 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         this.newsText.x = NEWS_X;
         this.newsText.y = 79;
         addChild(this.newsText);
+    }
+
+    private function makeMenuOptionsBar(): MenuOptionsBar
+    {
+        var _local_1:TitleMenuOption = ButtonFactory.getPlayButton()
+        var _local_2:TitleMenuOption = ButtonFactory.getClassesButton()
+        var _local_3:TitleMenuOption = ButtonFactory.getMainButton();
+        this.playClicked = _local_1.clicked;
+        this.classesClicked = _local_2.clicked;
+        this.backClicked = _local_3.clicked;
+        var _local_7:MenuOptionsBar = new MenuOptionsBar();
+        _local_7.addButton(_local_1, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_2, MenuOptionsBar.CENTER);
+        _local_7.addButton(_local_3, MenuOptionsBar.CENTER);
+        _local_1.x = 400;
+        _local_2.x = 525;
+        _local_3.x = 275;
+        return (_local_7);
     }
 
     private function createCharacterListChar():void {
