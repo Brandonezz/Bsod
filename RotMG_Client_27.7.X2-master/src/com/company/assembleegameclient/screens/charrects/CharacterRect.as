@@ -6,6 +6,10 @@
 package com.company.assembleegameclient.screens.charrects{
 import flash.display.Sprite;
 import flash.display.Shape;
+import flash.text.TextFieldAutoSize;
+import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
+
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.StringBuilder;
 import flash.filters.DropShadowFilter;
@@ -15,8 +19,8 @@ import flash.geom.ColorTransform;
 
 public class CharacterRect extends Sprite {
 
-    public static const WIDTH:int = 419;
-    public static const HEIGHT:int = 118;
+    public static const WIDTH:int = 400;
+    public static const HEIGHT:int = 100;
 
     public var color:uint;
     public var overColor:uint;
@@ -80,28 +84,29 @@ public class CharacterRect extends Sprite {
         this.taglineIcon.transform.colorTransform = new ColorTransform((179 / 0xFF), (179 / 0xFF), (179 / 0xFF));
         this.taglineIcon.scaleX = 1.2;
         this.taglineIcon.scaleY = 1.2;
-        this.taglineIcon.x = CharacterRectConstants.TAGLINE_ICON_POS_X + 66;
-        this.taglineIcon.y = 85;
+        this.taglineIcon.x = 185 * 70;
+        this.taglineIcon.y = 75;
         this.taglineIcon.filters = [new DropShadowFilter(0, 0, 0)];
         this.selectContainer.addChild(this.taglineIcon);
     }
 
     protected function makeClassNameText():void{
-        this.classNameText = new TextFieldDisplayConcrete().setSize(18).setColor(0xffa500);
-        this.classNameText.setBold(true);
+        this.classNameText = new TextFieldDisplayConcrete().setSize(18).setColor(0xffa500).setBold(true).setHorizontalAlign(TextFormatAlign.CENTER);
         this.classNameText.setStringBuilder(this.className);
         this.classNameText.filters = makeDropShadowFilter();
-        this.classNameText.x = CharacterRectConstants.CLASS_NAME_POS_X + 90;
-        this.classNameText.y = CharacterRectConstants.CLASS_NAME_POS_Y + 55;
+        this.classNameText.setAutoSize(TextFieldAutoSize.CENTER);
+        this.classNameText.x = WIDTH / 2;
+        this.classNameText.y = 55;
         this.selectContainer.addChild(this.classNameText);
     }
 
     protected function makeTaglineText(_arg_1:StringBuilder):void{
-        this.taglineText = new TextFieldDisplayConcrete().setSize(14).setColor(0xB3B3B3);
+        this.taglineText = new TextFieldDisplayConcrete().setSize(14).setColor(0xB3B3B3).setHorizontalAlign(TextFormatAlign.CENTER);
         this.taglineText.setStringBuilder(_arg_1);
         this.taglineText.filters = makeDropShadowFilter();
-        this.taglineText.x = CharacterRectConstants.TAGLINE_TEXT_POS_X + 66;
-        this.taglineText.y = CharacterRectConstants.TAGLINE_TEXT_POS_Y * 2 + 25;
+        this.taglineText.setAutoSize(TextFieldAutoSize.CENTER);
+        this.taglineText.x = WIDTH / 2;
+        this.taglineText.y = 75;
         this.selectContainer.addChild(this.taglineText);
     }
 

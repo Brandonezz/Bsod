@@ -25,7 +25,7 @@ public class MenuOptionsBar extends Sprite {
 
     private function makeScreenGraphic():void {
         this.screenGraphic = new ScreenGraphic();
-            this.screenGraphic.x = 801;
+            this.screenGraphic.x = 0;
         addChild(this.screenGraphic);
     }
 

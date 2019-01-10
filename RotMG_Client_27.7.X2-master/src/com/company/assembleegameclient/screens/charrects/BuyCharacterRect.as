@@ -34,8 +34,8 @@ public class BuyCharacterRect extends CharacterRect {
         var _local_2:Bitmap;
         var _local_1:BitmapData = IconFactory.makeCoin();
         _local_2 = new Bitmap(_local_1);
-        _local_2.x = (WIDTH - 43);
-        _local_2.y = (((HEIGHT - _local_2.height) * 0.5) - 1);
+        _local_2.x = (WIDTH - 30);
+        _local_2.y = 45;
         selectContainer.addChild(_local_2);
     }
 
@@ -44,8 +44,8 @@ public class BuyCharacterRect extends CharacterRect {
         _local_1 = new TextFieldDisplayConcrete().setSize(18).setColor(0xFFFFFF).setAutoSize(TextFieldAutoSize.RIGHT);
         _local_1.setStringBuilder(new StaticStringBuilder(this.model.getNextCharSlotPrice().toString()));
         _local_1.filters = [new DropShadowFilter(0, 0, 0, 1, 8, 8)];
-        _local_1.x = (WIDTH - 48);
-        _local_1.y = 19 * 2 + 10;
+        _local_1.x = (WIDTH - 35);
+        _local_1.y = 45;
         selectContainer.addChild(_local_1);
     }
 
@@ -60,8 +60,8 @@ public class BuyCharacterRect extends CharacterRect {
     private function makeIcon():void {
         var _local_1:Shape;
         _local_1 = this.buildIcon();
-        _local_1.x = (CharacterRectConstants.ICON_POS_X + 5);
-        _local_1.y = ((HEIGHT - _local_1.height) * 0.5);
+        _local_1.x = 180;
+        _local_1.y = 10;
         addChild(_local_1);
     }
 

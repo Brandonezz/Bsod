@@ -58,7 +58,7 @@ public class ServersScreen extends Sprite {
 
     private function makeScrollbar():void {
         this.scrollBar_ = new Scrollbar(16, 400);
-        this.scrollBar_.x = ((800 - this.scrollBar_.width) - 4);
+        this.scrollBar_.x = ((800 - this.scrollBar_.width) - 4) - 20;
         this.scrollBar_.y = 104;
         this.scrollBar_.setIndicatorSize(400, this.serverBoxes_.height);
         this.scrollBar_.addEventListener(Event.CHANGE, this.onScrollBarChange);

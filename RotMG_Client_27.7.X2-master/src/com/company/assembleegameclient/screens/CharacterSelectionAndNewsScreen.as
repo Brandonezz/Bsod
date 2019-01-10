@@ -133,7 +133,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
 
     private function createScrollbar():void {
         this.scrollBar = new Scrollbar(16, 399);
-        this.scrollBar.x = 605;
+        this.scrollBar.x = 585;
         this.scrollBar.y = 118;
         this.scrollBar.setIndicatorSize(399, this.characterList.height);
         this.scrollBar.addEventListener(Event.CHANGE, this.onScrollBarChange);
@@ -150,22 +150,13 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         addChild(this.newsText);
     }
 
-    private function makeMenuOptionsBar(): MenuOptionsBar
-    {
-        var _local_1:TitleMenuOption = ButtonFactory.getPlayButton()
-        var _local_2:TitleMenuOption = ButtonFactory.getClassesButton()
-        var _local_3:TitleMenuOption = ButtonFactory.getMainButton();
-        this.playClicked = _local_1.clicked;
-        this.classesClicked = _local_2.clicked;
-        this.backClicked = _local_3.clicked;
-        var _local_7:MenuOptionsBar = new MenuOptionsBar();
-        _local_7.addButton(_local_1, MenuOptionsBar.CENTER);
-        _local_7.addButton(_local_2, MenuOptionsBar.CENTER);
-        _local_7.addButton(_local_3, MenuOptionsBar.CENTER);
-        _local_1.x = 400;
-        _local_2.x = 525;
-        _local_3.x = 275;
-        return (_local_7);
+    private function makeMenuOptionsBar():void {
+        this.playButton.clicked.add(this.onPlayClick);
+        this.menuOptionsBar = new MenuOptionsBar();
+        this.menuOptionsBar.addButton(this.playButton, MenuOptionsBar.CENTER);
+        this.menuOptionsBar.addButton(this.backButton, MenuOptionsBar.LEFT);
+        this.menuOptionsBar.addButton(this.classesButton, MenuOptionsBar.RIGHT);
+        addChild(this.menuOptionsBar);
     }
 
     private function createCharacterListChar():void {

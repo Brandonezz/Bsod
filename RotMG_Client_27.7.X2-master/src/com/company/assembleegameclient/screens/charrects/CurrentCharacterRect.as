@@ -88,8 +88,8 @@ public class CurrentCharacterRect extends CharacterRect {
     public function setIcon(_arg_1:DisplayObject):void{
         ((this.icon) && (selectContainer.removeChild(this.icon)));
         this.icon = _arg_1;
-        this.icon.x = CharacterRectConstants.ICON_POS_X;
-        this.icon.y = CharacterRectConstants.ICON_POS_Y * 2;
+        this.icon.x = 170;
+        this.icon.y = CharacterRectConstants.ICON_POS_Y * 2 - 3;
         ((this.icon) && (selectContainer.addChild(this.icon)));
     }
 
@@ -101,13 +101,13 @@ public class CurrentCharacterRect extends CharacterRect {
                 "fame":this.char.fame(),
                 "nextStarFame":this.getNextStarFame()
             }));
-            taglineText.x = (taglineText.x + taglineIcon.width);
+            taglineText.x = WIDTH / 2;
         }
         else
         {
             super.makeTaglineIcon();
             super.makeTaglineText(new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINE_NOQUEST, {"fame":this.char.fame()}));
-            taglineText.x = (taglineText.x + taglineIcon.width);
+            taglineText.x = WIDTH / 2;
         };
     }
 
@@ -118,8 +118,8 @@ public class CurrentCharacterRect extends CharacterRect {
     private function makeDeleteButton():void{
         this.deleteButton = new DeleteXGraphic();
         this.deleteButton.addEventListener(MouseEvent.MOUSE_DOWN, this.onDeleteDown);
-        this.deleteButton.x = (WIDTH - 30);
-        this.deleteButton.y = ((HEIGHT - this.deleteButton.height) * 0.5);
+        this.deleteButton.x = 375;
+        this.deleteButton.y = 5;
         addChild(this.deleteButton);
     }
 
@@ -136,7 +136,7 @@ public class CurrentCharacterRect extends CharacterRect {
         this.statsMaxedText.setStringBuilder(new StaticStringBuilder((_local_1 + "/8")));
         this.statsMaxedText.filters = makeDropShadowFilter();
         this.statsMaxedText.x = CharacterRectConstants.STATS_MAXED_POS_X - 5;
-        this.statsMaxedText.y = CharacterRectConstants.STATS_MAXED_POS_Y * 2 + 10;
+        this.statsMaxedText.y = 40;
         selectContainer.addChild(this.statsMaxedText);
     }
 
@@ -147,7 +147,7 @@ public class CurrentCharacterRect extends CharacterRect {
         this.fameBitmapContainer.name = "fame_ui";
         this.fameBitmapContainer.addChild(this.fameBitmap);
         this.fameBitmapContainer.x = CharacterRectConstants.FAME_UI_POS_X - 5;
-        this.fameBitmapContainer.y = CharacterRectConstants.FAME_UI_POS_Y * 2 + 10;
+        this.fameBitmapContainer.y = 40;
         addChild(this.fameBitmapContainer);
     }
 

@@ -93,17 +93,17 @@ public class TitleView extends Sprite {
         _local_7.addButton(_local_4, MenuOptionsBar.CENTER);
         _local_7.addButton(_local_6, MenuOptionsBar.CENTER);
         //positioning bullshit
-        _local_1.x = -700;
+        _local_1.x = 100;
         _local_1.y = 300;
-        _local_2.x = -700;
+        _local_2.x = 100;
         _local_2.y = 250;
-        _local_3.x = -700;
+        _local_3.x = 100;
         _local_3.y = 215;
-        _local_4.x = -700;
+        _local_4.x = 100;
         _local_4.y = 350;
-        _local_5.x = -700;
+        _local_5.x = 100;
         _local_5.y = 385;
-        _local_6.x = -700;
+        _local_6.x = 100;
         _local_6.y = 420;
         return (_local_7);
     }
