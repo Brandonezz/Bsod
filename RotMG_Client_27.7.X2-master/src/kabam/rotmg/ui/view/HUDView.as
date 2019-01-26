@@ -60,11 +60,11 @@ public class HUDView extends Sprite implements UnFocusAble {
 
     private function addAssets():void {
         addChild(this.background);
+        //addChild(this.statMeters);
         addChild(this.bg);
         addChild(this.miniMap);
         addChild(this.tabStrip);
         addChild(this.characterDetails);
-        addChild(this.statMeters);
     }
 
     private function positionAssets():void {
