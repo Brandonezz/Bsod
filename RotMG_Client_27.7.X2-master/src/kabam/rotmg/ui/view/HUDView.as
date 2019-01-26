@@ -41,6 +41,7 @@ public class HUDView extends Sprite implements UnFocusAble {
     public var tabStrip:TabStripView;
     public var interactPanel:InteractPanel;
     public var tradePanel:TradePanel;
+    public var bg:HUD_background;
 
     public function HUDView() {
         this.createAssets();
@@ -50,6 +51,7 @@ public class HUDView extends Sprite implements UnFocusAble {
 
     private function createAssets():void {
         this.background = new CharacterWindowBackground();
+        this.bg = new HUD_background();
         this.miniMap = new MiniMapImp(192, 192);
         this.tabStrip = new TabStripView();
         this.characterDetails = new CharacterDetailsView();
@@ -58,6 +60,7 @@ public class HUDView extends Sprite implements UnFocusAble {
 
     private function addAssets():void {
         addChild(this.background);
+        addChild(this.bg);
         addChild(this.miniMap);
         addChild(this.tabStrip);
         addChild(this.characterDetails);
@@ -67,6 +70,8 @@ public class HUDView extends Sprite implements UnFocusAble {
     private function positionAssets():void {
         this.background.x = this.BG_POSITION.x;
         this.background.y = this.BG_POSITION.y;
+        this.bg.x = this.BG_POSITION.x;
+        this.bg.y = this.BG_POSITION.y;
         this.miniMap.x = this.MAP_POSITION.x;
         this.miniMap.y = this.MAP_POSITION.y;
         this.tabStrip.x = this.TAB_STRIP_POSITION.x;

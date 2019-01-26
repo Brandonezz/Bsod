@@ -29,7 +29,7 @@ public class TitleMenuOption extends Sprite {
     private var originalWidth:Number;
     private var originalHeight:Number;
     private var active:Boolean;
-    private var color:uint = 0xFFA5A5;
+    private var color:uint = 0xffa500;
     private var hoverColor:uint;
 
     public function TitleMenuOption(_arg_1:String, _arg_2:int, _arg_3:Boolean) {
@@ -129,16 +129,9 @@ public class TitleMenuOption extends Sprite {
     }
 
     protected function onMouseOver(_arg_1:MouseEvent):void {
-        this.setColorTransform(OVER_COLOR_TRANSFORM);
     }
 
     protected function onMouseOut(_arg_1:MouseEvent):void {
-        if (this.color != 0xFFFFFF) {
-            this.setColor(this.color);
-        }
-        else {
-            this.setColorTransform(null);
-        }
     }
 
     protected function onMouseClick(_arg_1:MouseEvent):void {

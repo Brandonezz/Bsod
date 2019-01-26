@@ -65,15 +65,11 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private var backButton:TitleMenuOption;
     private var menuOptionsBar:MenuOptionsBar;
     private var BOUNDARY_LINE_ONE_Y:int = 106;
-    private var screenGraphic:ScreenGraphic;
-
-    //
-
-    public var playClicked:Signal;
-    public var classesClicked:Signal;
-    public var backClicked:Signal;
 
     public function CharacterSelectionAndNewsScreen() {
+        var _local_1:Sprite = new Sprite();
+        _local_1.graphics.beginFill(0x363636);
+        _local_1.graphics.drawRect(0, 0, 800, 600);
         this.newCharacter = new Signal();
         this.chooseName = new Signal();
         this.playGame = new Signal();
@@ -83,6 +79,7 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
         super();
         this.close = this.backButton.clicked;
         this.showClasses = this.classesButton.clicked;
+        addChild(_local_1);
         addChild(new ScreenBase());
         addChild(new AccountScreen());
     }
