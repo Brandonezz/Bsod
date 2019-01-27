@@ -223,7 +223,7 @@ namespace wServer.realm
             if (CountEnemies(
                 "Lich", "Actual Lich",
                 "Ent Ancient", "Actual Ent Ancient",
-                "Phoenix Reborn", "Lord of the Lost Lands", "Ghost Ship",
+                "Phoenix Reborn", "Ghost Ship",
                 "Oasis Giant", "Ghost King", "Cyclops God", "Red Demon",
                 "Skull Shrine", "Cube God", "Grand Sphinx", "Hermit God") != 0) return false;
             RealmClosed = true;
