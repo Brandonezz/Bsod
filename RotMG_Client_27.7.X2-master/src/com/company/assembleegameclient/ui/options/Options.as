@@ -36,7 +36,7 @@ import kabam.rotmg.ui.UIUtils;
 
 public class Options extends Sprite {
 
-    private static const TABS:Vector.<String> = new <String>[TextKey.OPTIONS_CONTROLS, TextKey.OPTIONS_HOTKEYS, TextKey.OPTIONS_CHAT, TextKey.OPTIONS_GRAPHICS, TextKey.OPTIONS_SOUND, TextKey.OPTIONS_FRIEND, TextKey.OPTIONS_MISC];
+    private static const TABS:Vector.<String> = new <String>[TextKey.OPTIONS_CONTROLS, TextKey.OPTIONS_HOTKEYS, TextKey.OPTIONS_CHAT, TextKey.OPTIONS_GRAPHICS, TextKey.OPTIONS_SOUND, TextKey.OPTIONS_MISC];
     public static const Y_POSITION:int = 550;
     public static const CHAT_COMMAND:String = "chatCommand";
     public static const CHAT:String = "chat";
@@ -239,9 +239,6 @@ public class Options extends Sprite {
                 return;
             case TextKey.OPTIONS_MISC:
                 this.addMiscOptions();
-                return;
-            case TextKey.OPTIONS_FRIEND:
-                this.addFriendOptions();
                 return;
             case "Experimental":
                 this.addExperimentalOptions();
@@ -518,13 +515,6 @@ public class Options extends Sprite {
                 _local_1.enable((Parameters.data_.stageScale == StageScaleMode.EXACT_FIT));
             }
         }
-    }
-
-    private function addFriendOptions():void {
-        this.addOptionAndPosition(new ChoiceOption("tradeWithFriends", makeOnOffLabels(), [true, false], TextKey.OPTIONS_TRADE_FRIEND, TextKey.OPTIONS_TRADE_FRIEND_DESC, this.onPlaySoundEffectsChange));
-        this.addOptionAndPosition(new KeyMapper("friendList", TextKey.OPTIONS_SHOW_FRIEND_LIST, TextKey.OPTIONS_SHOW_FRIEND_LIST_DESC));
-        this.addOptionAndPosition(new ChoiceOption("chatFriend", makeOnOffLabels(), [true, false], TextKey.OPTIONS_CHAT_FRIEND, TextKey.OPTIONS_CHAT_FRIEND_DESC, null));
-        this.addOptionAndPosition(new ChoiceOption("friendStarRequirement", makeStarSelectLabels(), [0, 1, 2, 3, 5, 10], TextKey.OPTIONS_STAR_REQ, TextKey.OPTIONS_FRIEND_STAR_REQ_DESC, null));
     }
 
     private function onPlayMusicChange():void {

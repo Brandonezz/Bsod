@@ -2,6 +2,7 @@
 import com.company.assembleegameclient.game.AGameSprite;
 import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.objects.Player;
+import com.company.assembleegameclient.ui.StatusBar;
 import com.company.assembleegameclient.ui.TradePanel;
 import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.ui.panels.itemgrids.EquippedGrid;
@@ -20,6 +21,7 @@ import kabam.rotmg.messaging.impl.incoming.TradeAccepted;
 import kabam.rotmg.messaging.impl.incoming.TradeChanged;
 import kabam.rotmg.messaging.impl.incoming.TradeStart;
 import kabam.rotmg.minimap.view.MiniMapImp;
+import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 
 public class HUDView extends Sprite implements UnFocusAble {
 
@@ -42,6 +44,7 @@ public class HUDView extends Sprite implements UnFocusAble {
     public var interactPanel:InteractPanel;
     public var tradePanel:TradePanel;
     public var bg:HUD_background;
+    public var sbar:StatusBar;
 
     public function HUDView() {
         this.createAssets();
@@ -60,11 +63,11 @@ public class HUDView extends Sprite implements UnFocusAble {
 
     private function addAssets():void {
         addChild(this.background);
+        addChild(this.statMeters);
         addChild(this.bg);
         addChild(this.miniMap);
         addChild(this.tabStrip);
         addChild(this.characterDetails);
-        addChild(this.statMeters);
     }
 
     private function positionAssets():void {

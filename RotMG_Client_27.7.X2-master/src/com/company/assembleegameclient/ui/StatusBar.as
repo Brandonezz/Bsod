@@ -28,8 +28,8 @@ public class StatusBar extends Sprite {
     public var maxMax_:int = -1;
     private var labelText_:TextFieldDisplayConcrete;
     private var labelTextStringBuilder_:LineBuilder;
-    private var valueText_:TextFieldDisplayConcrete;
-    private var valueTextStringBuilder_:StaticStringBuilder;
+    public var valueText_:TextFieldDisplayConcrete;
+    public var valueTextStringBuilder_:StaticStringBuilder;
     private var boostText_:TextFieldDisplayConcrete;
     private var multiplierText:TextFieldDisplayConcrete;
     public var multiplierIcon:Sprite;
@@ -58,9 +58,9 @@ public class StatusBar extends Sprite {
             this.labelText_.setStringBuilder(this.labelTextStringBuilder_);
             this.centerVertically(this.labelText_);
             this.labelText_.filters = [new DropShadowFilter(0, 0, 0)];
-            addChild(this.labelText_);
+            //addChild(this.labelText_);
         }
-        this.valueText_ = new TextFieldDisplayConcrete().setSize(14).setColor(0xFFFFFF);
+        this.valueText_ = new TextFieldDisplayConcrete().setSize(13).setColor(0xFFFFFF);
         this.valueText_.setBold(true);
         this.valueText_.filters = [new DropShadowFilter(0, 0, 0)];
         this.centerVertically(this.valueText_);
