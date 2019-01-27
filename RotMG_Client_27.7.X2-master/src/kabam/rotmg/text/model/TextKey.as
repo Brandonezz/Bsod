@@ -249,7 +249,7 @@ public class TextKey {
     public static const OPTIONS_CHAT:String = "Options.Chat";
     public static const OPTIONS_GRAPHICS:String = "Options.Graphics";
     public static const OPTIONS_SOUND:String = "Options.Sound";
-    public static const OPTIONS_MISC:String = "Options.Misc";
+    public static const OPTIONS_MISC:String = "Extras";
     public static const OPTIONS_FRIEND:String = "Options.Friend";
     public static const OPTIONS_CONTINUE_BUTTON:String = "Options.continueButton";
     public static const OPTIONS_ACTIVATE_CHAT:String = "Options.ActivateChat";

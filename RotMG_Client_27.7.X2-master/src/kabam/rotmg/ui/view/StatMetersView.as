@@ -19,12 +19,18 @@ public class StatMetersView extends Sprite {
     private var expTimer:ExperienceBoostTimerPopup;
 
     public function StatMetersView() {
-        this.expBar_ = new StatusBar(176, 16, 5931045, 0x545454, TextKey.EXP_BAR_LEVEL);
-        this.fameBar_ = new StatusBar(176, 16, 0xE25F00, 0x545454, TextKey.CURRENCY_FAME);
-        this.hpBar_ = new StatusBar(176, 16, 14693428, 0x545454, TextKey.STATUS_BAR_HEALTH_POINTS);
-        this.mpBar_ = new StatusBar(176, 16, 6325472, 0x545454, TextKey.STATUS_BAR_MANA_POINTS);
-        this.hpBar_.y = 24;
-        this.mpBar_.y = 48;
+        this.expBar_ = new StatusBar(60, 60, 5931045, 0x545454, TextKey.EXP_BAR_LEVEL);
+        this.fameBar_ = new StatusBar(60, 60, 0xE25F00, 0x545454, TextKey.CURRENCY_FAME);
+        this.hpBar_ = new StatusBar(60, 60, 14693428, 0x545454, TextKey.STATUS_BAR_HEALTH_POINTS);
+        this.mpBar_ = new StatusBar(60, 60, 6325472, 0x545454, TextKey.STATUS_BAR_MANA_POINTS);
+        this.hpBar_.y = 3;
+        this.hpBar_.x = 6;
+        this.mpBar_.x = 58;
+        this.mpBar_.y = 3;
+        this.expBar_.x = 114;
+        this.expBar_.y = 3;
+        this.fameBar_.x = 114;
+        this.fameBar_.y = 3;
         this.expBar_.visible = true;
         this.fameBar_.visible = false;
         addChild(this.expBar_);
