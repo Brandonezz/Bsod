@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using wServer.networking.svrPackets;
 using wServer.realm;
 using wServer.realm.entities;
 using wServer.realm.entities.player;
