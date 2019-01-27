@@ -15,7 +15,6 @@ namespace wServer.logic
     partial class BehaviorDb
     {
         private _ GhostShip = () => Behav()
-        //made by omni the greatest rapper ever
                     .Init("Vengeful Spirit",
                 new State(
                     new State("Start",

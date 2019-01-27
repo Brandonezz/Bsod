@@ -10,16 +10,34 @@ using System.Net.Sockets;
 using log4net;
 using System.Text;
 using wServer.networking.svrPackets;
+using System.Threading;
 
 #endregion
 
 namespace wServer.networking
 {
-    //hackish code
+
     internal class NetworkHandler : IDisposable
     {
-        public const int BUFFER_SIZE = int.MaxValue / 2046; //Testing this here.
-        private static readonly ILog log = LogManager.GetLogger(typeof (NetworkHandler));
+
+        public const int MEMORY_USAGE_DEFAULT = 4096;
+        public const int MEMORY_USAGE_TINY = 5120;//less 5 connections
+        public const int MEMORY_USAGE_MEDIUM = 7168;//less 9 connections
+        public const int MEMORY_USAGE_BIG = 9216;//less 23 connections
+        public const int MEMORY_USAGE_LARGE = 16384;//less 31 connections
+        public const int MEMORY_USAGE_HUGE_1 = 19456;//less 31 connections
+        public const int MEMORY_USAGE_HUGE_2 = 23552;//less 45 connections
+        public const int MEMORY_USAGE_HUGE_3 = 26624;//less 65 connections
+        public const int MEMORY_USAGE_HUGE_4 = 32768;//less 100 connections
+        public const int MEMORY_USAGE_HUGE_TEST = 65535;
+
+        private bool disposed;
+        private bool disposeCalled;
+        private int m_recvOperating;
+        private int m_sendOperating;
+
+        public const int BUFFER_SIZE = int.MaxValue / MEMORY_USAGE_HUGE_TEST;
+        private static readonly ILog log = LogManager.GetLogger(typeof(NetworkHandler));
         private readonly Client parent;
         private readonly ConcurrentQueue<Packet> pendingPackets = new ConcurrentQueue<Packet>();
         private readonly object sendLock = new object();
@@ -67,16 +85,18 @@ namespace wServer.networking
             wtr.WriteNullTerminatedString(@"<cross-domain-policy>
      <allow-access-from domain=""*"" to-ports=""*"" />
 </cross-domain-policy>");
-            wtr.Write((byte) '\r');
-            wtr.Write((byte) '\n');
+            wtr.Write((byte)'\r');
+            wtr.Write((byte)'\n');
             parent.Disconnect();
         }
 
-        //It is said that ReceiveAsync/SendAsync never returns false unless error
-        //So...let's just treat it as always true
 
         private void ReceiveCompleted(object sender, SocketAsyncEventArgs e)
         {
+            m_recvOperating = 0;
+
+            if (disposeCalled)
+                Dispose();
             try
             {
                 if (!skt.Connected)
@@ -86,7 +106,7 @@ namespace wServer.networking
                 }
 
                 if (e.SocketError != SocketError.Success)
-                    throw new SocketException((int) e.SocketError);
+                    throw new SocketException((int)e.SocketError);
 
                 switch (receiveState)
                 {
@@ -100,7 +120,7 @@ namespace wServer.networking
                         if (e.Buffer[0] == 0x4d && e.Buffer[1] == 0x61 &&
                             e.Buffer[2] == 0x64 && e.Buffer[3] == 0x65 && e.Buffer[4] == 0xff)
                         {
-                            log.InfoFormat("Usage request from: @ {0}.", skt.RemoteEndPoint);
+                            //log.InfoFormat("Usage request from: @ {0}.", skt.RemoteEndPoint);
                             byte[] c = Encoding.ASCII.GetBytes(parent.Manager.MaxClients +
                                 ":" + parent.Manager.Clients.Count.ToString());
                             skt.Send(c);
@@ -165,9 +185,13 @@ namespace wServer.networking
 
         private void SendCompleted(object sender, SocketAsyncEventArgs e)
         {
+            m_sendOperating = 0;
+
+            if (disposeCalled)
+                Dispose();
             try
             {
-                if (!skt.Connected) return;
+                if (!skt.Connected || disposed) return;
 
                 int len;
                 switch (sendState)
@@ -298,12 +322,33 @@ namespace wServer.networking
 
         public void Dispose()
         {
-            send.Completed -= SendCompleted;
-            send.Dispose();
+            //send.Completed -= SendCompleted;
+            //send.Dispose();
+            //sendBuff = null;
+            //receive.Completed -= ReceiveCompleted;
+            //receive.Dispose();
+            //receiveBuff = null;
+            disposeCalled = true;
+            if (Interlocked.Exchange(ref m_sendOperating, 1) != 0 || Interlocked.Exchange(ref m_recvOperating, 1) != 0 || disposed)
+                return;
+            disposed = true;
+            if (send != null)
+            {
+                send.Completed -= SendCompleted;
+                send.Dispose();
+                sendBuff = null;
+            }
+            if (receive != null)
+            {
+                receive.Completed -= ReceiveCompleted;
+                receive.Dispose();
+                receiveBuff = null;
+            }
             sendBuff = null;
-            receive.Completed -= ReceiveCompleted;
-            receive.Dispose();
             receiveBuff = null;
+            send = null;
+            receive = null;
+            skt?.Dispose();
         }
     }
 }
