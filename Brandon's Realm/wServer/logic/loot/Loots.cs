@@ -150,6 +150,24 @@ namespace wServer.logic.loot
                     items = new Item[8];
                     idx = 0;
                 }
+
+                if (i.BagType >= 6)
+                {
+                    System.Console.WriteLine(owners);
+                    var PlayerName = owners[0].Name;
+                    var ItemName = i.ObjectId;
+                    var packet = new TextPacket()
+                    {
+                        Name = "#Loot Notification",
+                        Stars = -1,
+                        Text = $"{PlayerName} has obtained the white [{ItemName}]!",
+                        BubbleTime = 0
+                    };
+                    foreach (var p in enemy.Owner.Players.Values)
+                    {
+                        p.Client.SendPacket(packet);
+                    }
+                }
             }
 
             if (idx > 0)

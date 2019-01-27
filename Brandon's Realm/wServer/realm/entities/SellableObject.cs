@@ -18,10 +18,10 @@ namespace wServer.realm.entities
         public SellableObject(RealmManager manager, ushort objType)
             : base(manager, objType, null, true, false, false)
         {
-            if (objType == 0x0505) //Vault chest
+            if (objType == 0x0505)
             {
                 Price = 500;
-                Currency = CurrencyType.Gold;
+                Currency = CurrencyType.Fame;
                 RankReq = 0;
             }
             else if (objType == 0x0736)
