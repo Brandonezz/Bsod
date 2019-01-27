@@ -28,7 +28,6 @@ namespace wServer.realm
             Tuple.Create("Skull Shrine", (ISetPiece) new SkullShrine()),
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
-            //Tuple.Create("Lord of the Lost Lands", (ISetPiece) new Lotll()),
             Tuple.Create("Hermit God", (ISetPiece) new Hermit()),
             Tuple.Create("Ghost Ship", (ISetPiece) new GhostShip()),
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
