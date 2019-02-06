@@ -332,13 +332,13 @@ namespace wServer.realm.entities.merchant
                 var s = Random.Next(0, 100);
 
                 if(s < 2)
-                    Discount = 50;
-                else if(s < 5)
-                    Discount = 25;
-                else if (s < 10)
-                    Discount = 15;
-                else if(s < 15)
-                    Discount = 10;
+                    Discount = 0;
+                else if(s < 0)
+                    Discount = 0;
+                else if (s < 0)
+                    Discount = 0;
+                else if(s < 0)
+                    Discount = 0;
                 else Discount = 0;
 
                 Tuple<int, CurrencyType> price;

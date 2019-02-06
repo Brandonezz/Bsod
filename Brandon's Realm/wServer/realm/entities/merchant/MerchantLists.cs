@@ -182,7 +182,7 @@ namespace wServer.realm.entities
             {0xccf, new Tuple<int, CurrencyType>(125, CurrencyType.Fame)}, //Woodland Labyrinth Key
             {0xcda, new Tuple<int, CurrencyType>(125, CurrencyType.Fame)}, //The Crawling Depths Key
             {0xcdd, new Tuple<int, CurrencyType>(250, CurrencyType.Fame)},//Shatters Key
-            {0xe51f, new Tuple<int, CurrencyType>(5000, CurrencyType.Fame)}, //Fame
+            {0xe51f, new Tuple<int, CurrencyType>(5000, CurrencyType.Fame)}, //5000 Fame
         };
 
         public static int[] store10List = { 0xb41, 0xbab, 0xbad, 0xbac };
